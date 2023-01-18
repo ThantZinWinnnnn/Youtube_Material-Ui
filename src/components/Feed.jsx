@@ -7,10 +7,12 @@ import { fetchFromApi } from "../utils/fetchFromApi";
 
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("New");
+  const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    fetchFromApi(`search?part=snippet&q=${selectedCategory}`);
-  }, []);
+    fetchFromApi(`search?part=snippet&q=${selectedCategory}`)
+    .then((data)=>setVideos(data.items));
+  }, [selectedCategory]);
 
   return (
     <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
@@ -36,9 +38,9 @@ const Feed = () => {
 
       <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
         <Typography variant="h4" fontWeight={"bold"} color={"white"}>
-          New <span style={{ color: "#F31503" }}>videos</span>
+          {selectedCategory} <span style={{ color: "#F31503" }}>videos</span>
         </Typography>
-        <Videos />
+        <Videos videos={videos} />
       </Box>
     </Stack>
   );
