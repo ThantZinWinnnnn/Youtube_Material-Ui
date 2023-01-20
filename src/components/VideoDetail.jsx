@@ -5,6 +5,7 @@ import { Typography, Box, Stack } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import Videos from "./Videos";
 import { fetchFromApi } from "../utils/fetchFromApi";
+import Loader from "./Loader";
 
 const VideoDetail = () => {
   const [videoDetails, setVideoDetails] = useState(null);
@@ -24,7 +25,7 @@ const VideoDetail = () => {
     );
   }, [id]);
 
-  if (!videoDetails?.snippet) return "Loading...";
+  if (!videoDetails?.snippet) return <Loader/>;
   //if (!videos) return "Loading...";
 
   const {
